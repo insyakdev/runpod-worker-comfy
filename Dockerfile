@@ -67,6 +67,19 @@ WORKDIR /comfyui
 RUN mkdir -p models/checkpoints/sdxl \
               models/controlnet/sdxl/controlnet-union-sdxl-1.0 \
               models/upscale_models
+RUN mkdir -p models/sams \
+              models/grounding-dino   
+
+# SAM model (2.56GB)
+RUN wget -q -O models/sams/sam_vit_h_4b8939.pth \
+    "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth"
+
+# GroundingDINO model (938MB)
+RUN wget -q -O models/grounding-dino/groundingdino_swinb_cogcoor.pth \
+    "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swinb_cogcoor.pth"
+
+RUN wget -q -O models/grounding-dino/GroundingDINO_SwinB.cfg.py \
+    "https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/GroundingDINO_SwinB.cfg.py"              
 
 # ✅ Upscaler
 RUN wget -q -O models/upscale_models/RealESRGAN_x4plus.pth \
