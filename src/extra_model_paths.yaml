@@ -1,5 +1,6 @@
 runpod_worker_comfy:
-  base_path: /runpod-volume
+  # base_path: /runpod-volume
+  base_path: /comfyui
   checkpoints: models/checkpoints/
   clip: models/clip/
   clip_vision: models/clip_vision/
@@ -10,3 +11,5 @@ runpod_worker_comfy:
   upscale_models: models/upscale_models/
   vae: models/vae/
   unet: models/unet/
+  sams: models/sams/                         
+  grounding-dino: models/grounding-dino/  
