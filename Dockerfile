@@ -36,10 +36,12 @@ WORKDIR /comfyui
 ADD src/extra_model_paths.yaml ./
 WORKDIR /
 
-RUN uv pip install runpod requests websocket-client \
-    torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+# Torch with PyTorch index
+RUN uv pip install torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/cu126
 
-RUN uv pip install \
+# Regular packages (no index URL)
+RUN uv pip install runpod requests websocket-client \
     safetensors>=0.4.2 \
     Pillow \
     huggingface_hub \
@@ -64,7 +66,10 @@ RUN uv pip install \
     scikit-image \
     opencv-python-headless \
     torchsde
-RUN uv pip install xformers --index-url https://download.pytorch.org/whl/cu126
+
+# xformers with PyTorch index
+RUN uv pip install xformers \
+    --index-url https://download.pytorch.org/whl/cu126
 
 ADD src/start.sh handler.py test_input.json ./
 RUN chmod +x /start.sh
