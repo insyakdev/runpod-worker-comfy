@@ -36,9 +36,34 @@ WORKDIR /comfyui
 ADD src/extra_model_paths.yaml ./
 WORKDIR /
 
-RUN uv pip install runpod requests websocket-client safetensors \
-    Pillow huggingface_hub numpy scipy einops transformers \
-    accelerate kornia scikit-image opencv-python-headless
+RUN uv pip install runpod requests websocket-client \
+    torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+
+RUN uv pip install \
+    safetensors>=0.4.2 \
+    Pillow \
+    huggingface_hub \
+    numpy>=1.25.0 \
+    scipy \
+    einops \
+    transformers>=4.50.3 \
+    tokenizers>=0.13.3 \
+    sentencepiece \
+    aiohttp>=3.11.8 \
+    yarl>=1.18.0 \
+    pyyaml \
+    tqdm \
+    psutil \
+    alembic \
+    SQLAlchemy \
+    kornia>=0.7.1 \
+    spandrel \
+    pydantic~=2.0 \
+    pydantic-settings~=2.0 \
+    accelerate \
+    scikit-image \
+    opencv-python-headless \
+    torchsde
 RUN uv pip install xformers --index-url https://download.pytorch.org/whl/cu126
 
 ADD src/start.sh handler.py test_input.json ./
