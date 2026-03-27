@@ -228,7 +228,7 @@ COPY --from=downloader /comfyui/models /comfyui/models
 
 
 
-# # Stage 1: Base image with common dependencies
+ # Stage 1: Base image with common dependencies
 # FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04 as base
 
 # # Prevents prompts from packages asking for user input during installation
