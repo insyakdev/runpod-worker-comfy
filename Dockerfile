@@ -30,7 +30,7 @@ RUN wget -qO- https://astral.sh/uv/install.sh | sh \
 ENV PATH="/opt/venv/bin:${PATH}"
 
 RUN uv pip install comfy-cli pip setuptools wheel
-RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.30 --cuda-version 12.6 --nvidia
+RUN /usr/bin/yes | comfy --workspace /comfyui install --version latest --cuda-version 12.6 --nvidia
 RUN uv pip install -r /comfyui/requirements.txt
 RUN uv pip install comfyui-frontend-package
 
@@ -82,9 +82,10 @@ RUN chmod +x /usr/local/bin/comfy-node-install
 WORKDIR /comfyui
 
 # ✅ All nodes required by workflow
-RUN comfy node install https://github.com/Fannovel16/comfyui_controlnet_aux.git
-RUN comfy node install https://github.com/1038lab/ComfyUI-RMBG.git
-RUN comfy node install https://github.com/twri/sdxl_prompt_styler.git
+
+RUN comfy node install --skip-comfyui-check https://github.com/Fannovel16/comfyui_controlnet_aux.git
+RUN comfy node install --skip-comfyui-check https://github.com/1038lab/ComfyUI-RMBG.git
+RUN comfy node install --skip-comfyui-check https://github.com/twri/sdxl_prompt_styler.git
 
 WORKDIR /
 ENV PIP_NO_INPUT=1
