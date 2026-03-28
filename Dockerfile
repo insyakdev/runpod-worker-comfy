@@ -43,7 +43,7 @@ RUN uv pip install torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/cu126
 
 # Regular packages (no index URL)
-RUN uv pip install runpod requests websocket-client \
+RUN uv pip install "runpod~=1.7.12" requests websocket-client \
     safetensors>=0.4.2 \
     Pillow \
     huggingface_hub \
