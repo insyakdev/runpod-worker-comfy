@@ -30,7 +30,7 @@ RUN wget -qO- https://astral.sh/uv/install.sh | sh \
 ENV PATH="/opt/venv/bin:${PATH}"
 
 RUN uv pip install comfy-cli pip setuptools wheel
-RUN /usr/bin/yes | comfy --workspace /comfyui install --version latest --cuda-version 12.6 --nvidia
+RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.40 --cuda-version 12.6 --nvidia
 RUN uv pip install -r /comfyui/requirements.txt
 RUN uv pip install comfyui-frontend-package
 
@@ -83,9 +83,17 @@ WORKDIR /comfyui
 
 # ✅ All nodes required by workflow
 
-RUN comfy node install --skip-comfyui-check https://github.com/Fannovel16/comfyui_controlnet_aux.git
-RUN comfy node install --skip-comfyui-check https://github.com/1038lab/ComfyUI-RMBG.git
-RUN comfy node install --skip-comfyui-check https://github.com/twri/sdxl_prompt_styler.git
+
+
+RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git /comfyui/custom_nodes/comfyui_controlnet_aux \
+    && cd /comfyui/custom_nodes/comfyui_controlnet_aux \
+    && uv pip install -r requirements.txt || true
+
+RUN git clone https://github.com/1038lab/ComfyUI-RMBG.git /comfyui/custom_nodes/ComfyUI-RMBG \
+    && cd /comfyui/custom_nodes/ComfyUI-RMBG \
+    && uv pip install -r requirements.txt || true
+
+RUN git clone https://github.com/twri/sdxl_prompt_styler.git /comfyui/custom_nodes/sdxl_prompt_styler
 
 WORKDIR /
 ENV PIP_NO_INPUT=1
